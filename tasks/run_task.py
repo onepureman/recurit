@@ -13,6 +13,11 @@ def PICC_spider_task(proxies, model):
         "proxies": proxies,
         "url": "https://picc.zhiye.com/xzlist3/?d=-1&p=1%5E-1%2C3%5E-1&PageIndex=1",  # 首页地址
     })
+    spider.run({
+        "proxies": proxies,
+        "url": "https://picc.zhiye.com/shixi/?PageIndex=1",  # 首页地址
+    })
+    spider.Create_Connect.close_connect()
 
     return True
 

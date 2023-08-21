@@ -31,3 +31,6 @@ class CreateConnect(object):
     def mongo_db_update_one(self, data_index, data):
         ret = self.collection.replace_one(data_index, data)
         return ret
+
+    def close_connect(self):
+        self.mongo_client.close()

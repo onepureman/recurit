@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 from common.logger.logger import logger
 from common import config
-
+from common.logger.logger import log_template
 class BaseSpider(metaclass=ABCMeta):
     """爬虫公共基类"""
 
@@ -42,7 +42,7 @@ class BaseSpider(metaclass=ABCMeta):
         """
 
     @abstractmethod
-    def _pipeline(self, request_params: Dict[str, Any], data: List[Any]) -> bool:
+    def _pipeline(self) -> bool:
         """
             数据管道方法
             参数:
@@ -106,7 +106,7 @@ class BaseSpider(metaclass=ABCMeta):
             返回值：
                 无
         """
-        log_template = '[spider] {0}  [time] {1}  [params] {2}  [info] {3}'  # 日志模板
+
         class_name = self.__class__.__name__  # 获取爬虫类名
 
         # 获取配置信息或设置默认参数
@@ -146,9 +146,8 @@ class BaseSpider(metaclass=ABCMeta):
             if not flag:  # 标识是否继续请求
                 break
 
-
         # 入库过程
-        # is_success = self._pipeline(request_params, data)
+        is_success = self._pipeline()
         # info = '已爬取{0}条数据'.format(len(data)) if is_success else '入库失败'
         # logger.info(log_template.format(class_name, datetime.datetime.now(), request_params, info))
 
